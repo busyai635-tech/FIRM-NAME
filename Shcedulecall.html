@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Schedule a consultation with our Expert Chartered Accountants">
+    <title>Schedule a Call | FIRM NAME</title>
+    
+    <!-- Typography: Inter Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* 
+        ========================================
+        1. SHARED VARIABLES & RESET 
+        (Matches Homepage)
+        ========================================
+        */
+        :root {
+            --primary: #0F8F4A;
+            --primary-dark: #0A6332;
+            --secondary: #16322C;
+            --bg-body: #FBF7F4;
+            --bg-white: #FFFFFF;
+            --text-main: #16322C;
+            --text-muted: #4B5563;
+            --border-light: #E5E7EB;
+            
+            --container-width: 1200px;
+            --radius-card: 16px;
+            --radius-pill: 50px;
+            --radius-input: 10px;
+            
+            --shadow-soft: 0 8px 24px rgba(11, 43, 35, 0.06);
+            --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            --shadow-hover: 0 12px 32px rgba(15, 143, 74, 0.15);
+            
+            --transition: all 0.3s ease;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4 { color: var(--text-main); font-weight: 700; line-height: 1.2; }
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        ul { list-style: none; }
+        img { max-width: 100%; display: block; }
+
+        .container { max-width: var(--container-width); margin: 0 auto; padding: 0 20px; }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 14px 28px;
+            border-radius: var(--radius-pill);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            text-align: center;
+        }
+
+        .btn-primary { background-color: var(--primary); color: white; width: 100%; }
+        .btn-primary:hover { background-color: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(15, 143, 74, 0.3); }
+
+        /* 
+        ========================================
+        2. NAVBAR (Identical to Homepage)
+        ========================================
+        */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(251, 247, 244, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            padding: 1rem 0;
+        }
+
+        .nav-container { display: flex; justify-content: space-between; align-items: center; }
+        
+        .logo { display: flex; align-items: center; font-weight: 800; font-size: 1.5rem; color: var(--secondary); gap: 10px; }
+        .logo-mark { width: 40px; height: 40px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+        
+        .nav-menu { display: flex; gap: 2.5rem; align-items: center; }
+        .nav-link { font-weight: 500; color: var(--text-muted); font-size: 1rem; }
+        .nav-link:hover { color: var(--primary); }
+        
+        /* Mobile Nav Toggle */
+        .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 5px; }
+        .hamburger span { width: 25px; height: 3px; background-color: var(--secondary); transition: var(--transition); }
+
+        /* 
+        ========================================
+        3. SCHEDULE PAGE HEADER
+        ========================================
+        */
+        .page-header {
+            text-align: center;
+            padding: 80px 0 40px;
+        }
+
+        .page-header h1 { font-size: 3rem; margin-bottom: 1rem; color: var(--secondary); }
+        .page-header p { font-size: 1.125rem; color: var(--text-muted); max-width: 600px; margin: 0 auto; }
+
+        /* 
+        ========================================
+        4. BOOKING SECTION (Layout)
+        ========================================
+        */
+        .booking-section { padding-bottom: 100px; }
+
+        .booking-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.4fr; /* Left info smaller than form */
+            gap: 60px;
+            align-items: start;
+        }
+
+        /* LEFT SIDE: INFO */
+        .booking-info {
+            padding-top: 20px;
+        }
+        
+        .info-card {
+            background: white;
+            padding: 30px;
+            border-radius: var(--radius-card);
+            border: 1px solid var(--border-light);
+            margin-bottom: 30px;
+        }
+
+        .info-card h3 { font-size: 1.25rem; margin-bottom: 15px; color: var(--secondary); }
+        
+        .checklist li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 15px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+        
+        .check-icon {
+            color: var(--primary);
+            flex-shrink: 0;
+            margin-top: 3px;
+        }
+
+        .contact-direct {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .contact-row { display: flex; align-items: center; gap: 15px; color: var(--text-main); font-weight: 500; }
+        .contact-row-icon { width: 40px; height: 40px; background: rgba(15, 143, 74, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--primary); }
+
+        /* RIGHT SIDE: FORM */
+        .booking-form-wrapper {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group { margin-bottom: 20px; }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--secondary);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: var(--radius-input);
+            border: 1px solid var(--border-light);
+            background: #FAFAFA;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            color: var(--text-main);
+            transition: var(--transition);
+            outline: none;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(15, 143, 74, 0.1);
+        }
+
+        textarea.form-control { resize: vertical; min-height: 120px; }
+
+        /* Time Slots Radio Style */
+        .time-slots {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .time-radio { display: none; }
+        
+        .time-label {
+            display: block;
+            text-align: center;
+            padding: 10px;
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--text-muted);
+        }
+
+        .time-radio:checked + .time-label {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .time-label:hover { border-color: var(--primary); color: var(--primary); }
+        .time-radio:checked + .time-label:hover { color: white; }
+
+        /* 
+        ========================================
+        5. FOOTER (Identical to Homepage)
+        ========================================
+        */
+        footer { background-color: #0B2B23; color: white; padding: 80px 0 30px; margin-top: auto;}
+        .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 50px; margin-bottom: 60px; }
+        .footer-col h5 { font-size: 1.2rem; margin-bottom: 20px; color: white; }
+        .footer-col p { color: rgba(255,255,255,0.7); margin-bottom: 20px; }
+        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col ul li a { color: rgba(255,255,255,0.7); }
+        .footer-col ul li a:hover { color: var(--primary); padding-left: 5px; }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; text-align: center; color: rgba(255,255,255,0.5); font-size: 0.9rem; }
+
+        /* 
+        ========================================
+        RESPONSIVE
+        ========================================
+        */
+        @media (max-width: 900px) {
+            .booking-grid { grid-template-columns: 1fr; gap: 40px; }
+            .booking-info { padding-top: 0; }
+        }
+        
+        @media (max-width: 768px) {
+            .navbar .nav-menu { display: none; } /* Simplified mobile nav for demo */
+            .hamburger { display: flex; }
+            .page-header h1 { font-size: 2.2rem; }
+            .form-grid { grid-template-columns: 1fr; }
+            .time-slots { grid-template-columns: repeat(2, 1fr); }
+            
+            /* Mobile Menu Logic (Same as Index) */
+            .nav-menu.active {
+                display: flex;
+                position: fixed; top: 0; right: 0; width: 80%; height: 100vh;
+                background: white; flex-direction: column; justify-content: center;
+                box-shadow: -5px 0 15px rgba(0,0,0,0.1); padding: 40px; z-index: 1001;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-mark">f</div>
+                 FIRM NAME
+            </a>
+            
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span><span></span><span></span>
+            </div>
+
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="index.html" class="nav-link">Services</a></li>
+                <li><a href="index.html" class="nav-link">About</a></li>
+                <li><a href="Shcedulecall.html" class="nav-link active">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- PAGE HEADER -->
+    <header class="page-header">
+        <div class="container">
+            <h1>Schedule Your Free Consultation</h1>
+            <p>Ready to optimize your finances? Fill out the form below to book a 30-minute discovery call with our certified experts.</p>
+        </div>
+    </header>
+
+    <!-- BOOKING SECTION -->
+    <section class="booking-section">
+        <div class="container booking-grid">
+            
+            <!-- LEFT COLUMN: CONTEXT -->
+            <div class="booking-info">
+                
+                <!-- What to expect -->
+                <div class="info-card">
+                    <h3>What to expect?</h3>
+                    <ul class="checklist">
+                        <li>
+                            <span class="check-icon">✓</span>
+                            <span>A comprehensive review of your current financial status.</span>
+                        </li>
+                        <li>
+                            <span class="check-icon">✓</span>
+                            <span>Strategic tax saving opportunities identification.</span>
+                        </li>
+                        <li>
+                            <span class="check-icon">✓</span>
+                            <span>Transparent pricing structure for our services.</span>
+                        </li>
+                        <li>
+                            <span class="check-icon">✓</span>
+                            <span>No obligation to hire us after the call.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Direct Contact -->
+                <div class="info-card">
+                    <h3>Prefer to call us?</h3>
+                    <div class="contact-direct">
+                        <div class="contact-row">
+                            <div class="contact-row-icon">
+                                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57a1.02 1.02 0 00-1.02.24l-2.2 2.2a15.045 15.045 0 01-6.59-6.59l2.2-2.21c.28-.26.36-.65.25-1.02A11.36 11.36 0 018.5 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1zM19 12h2a9 9 0 00-9-9v2c3.87 0 7 3.13 7 7zm-4 0h2c0-2.76-2.24-5-5-5v2c1.66 0 3 1.34 3 3z"/></svg>
+                            </div>
+                            <span>+1 (625) 123-4567</span>
+                        </div>
+                        <div class="contact-row">
+                            <div class="contact-row-icon">
+                                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                            </div>
+                            <span>contact@lifeworks.com</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN: FORM -->
+            <div class="booking-form-wrapper">
+                <form onsubmit="event.preventDefault(); alert('Request sent! We will contact you shortly.');">
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">First Name</label>
+                            <input type="text" class="form-control" placeholder="John" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Last Name</label>
+                            <input type="text" class="form-control" placeholder="Doe" required>
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" class="form-control" placeholder="john@company.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Phone Number</label>
+                            <input type="tel" class="form-control" placeholder="+1 (555) 000-0000">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Service Interested In</label>
+                        <select class="form-control">
+                            <option>Tax Filing & Planning</option>
+                            <option>Audit & Assurance</option>
+                            <option>Business Advisory</option>
+                            <option>Compliance & Legal</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Preferred Date</label>
+                        <input type="date" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Preferred Time Slot (Morning / Afternoon)</label>
+                        <div class="time-slots">
+                            <input type="radio" name="time" id="t1" class="time-radio" checked>
+                            <label for="t1" class="time-label">9:00 AM</label>
+
+                            <input type="radio" name="time" id="t2" class="time-radio">
+                            <label for="t2" class="time-label">11:00 AM</label>
+
+                            <input type="radio" name="time" id="t3" class="time-radio">
+                            <label for="t3" class="time-label">1:00 PM</label>
+                            
+                            <input type="radio" name="time" id="t4" class="time-radio">
+                            <label for="t4" class="time-label">3:00 PM</label>
+
+                            <input type="radio" name="time" id="t5" class="time-radio">
+                            <label for="t5" class="time-label">4:30 PM</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Message / Specific Requirements</label>
+                        <textarea class="form-control" placeholder="Briefly describe your business needs..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Confirm Booking Request</button>
+                    <p style="margin-top: 15px; font-size: 0.85rem; color: #9CA3AF; text-align: center;">
+                        By clicking button, you agree to our Terms of Service.
+                    </p>
+                </form>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="logo" style="color: white; margin-bottom: 20px;">
+                        <div class="logo-mark" style="background: white; color: var(--primary);">L</div>
+                        Lifeworks
+                    </a>
+                    <p>Helping businesses thrive with expert guidance in taxation, accounting, audits, and compliance.</p>
+                </div>
+                <div class="footer-col">
+                    <h5>Quick Links</h5>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html#services">Services</a></li>
+                        <li><a href="index.html#about">About Us</a></li>
+                        <li><a href="schedule.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h5>Contact Us</h5>
+                    <ul>
+                        <li>+1 (625) 123-4567</li>
+                        <li>contact@lifeworks.com</li>
+                        <li>123 Business Ave, NY</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2025 Lifeworks. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('navMenu');
+            menu.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
